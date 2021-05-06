@@ -30,17 +30,7 @@ class Pio(Package):
                 '--prefix={0}'.format(prefix),
                 '--disable-netcdf',
                 '--disable-mpiio',
-                'CC=gcc',
-                'CXX=g++',
-                'FC=gfortran',
-                'F77=gfortran',
-                'F90=gfortran',
-                'MPICC=mpicc',
-                'MPICXX=mpicxx',
-                'MPIFC=mpif90',
-                'MPIF77=mpif90',
-                'MPIF90=mpif90', 
-                #'FFLAGS={0}'.format('-mcmodel=medium -fPIC'),
+                'FFLAGS={0}'.format('-mcmodel=medium'),
                 #'NETCDF_PATH=' + self.spec['netcdf-fortran'].prefix,
                 'PNETCDF_PATH=' + self.spec['parallel-netcdf'].prefix]
 
