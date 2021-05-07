@@ -15,10 +15,10 @@ class Pio(Package):
 
     version('1_7_2', 'ecc9b50e2c75f0189c76917a555aee3b6dc3cc5e38232007577c51bb2c977e39')
 
-    depends_on('mpi')
+    depends_on('mpich@3.2.1 device=ch3')
     #depends_on('netcdf-c +mpi', type='link')
     #depends_on('netcdf-fortran', type='link')
-    depends_on('parallel-netcdf', type='link')
+    depends_on('parallel-netcdf@1.7.0 -shared', type='link')
 
     phases = ['configure', 'build', 'install']
 

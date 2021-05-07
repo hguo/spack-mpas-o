@@ -19,11 +19,12 @@ class MpasOcean(Package):
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
 
-    depends_on('mpi')
+    depends_on('mpich@3.2.1 device=ch3')
     depends_on('pio@1_7_2', type='link')
-    depends_on('netcdf-c +mpi', type='link')
-    depends_on('netcdf-fortran', type='link')
-    depends_on('parallel-netcdf', type='link')
+    depends_on('hdf5@1.10.2')
+    depends_on('netcdf-c@4.6.1 +mpi', type='link')
+    depends_on('netcdf-fortran@4.4.4', type='link')
+    depends_on('parallel-netcdf@1.7.0 -shared', type='link')
     depends_on('python@:2.9', type='build')
 
     phases = ['build', 'install']
