@@ -18,6 +18,7 @@ class MpasOcean(Package):
     # maintainers = ['github_user1', 'github_user2']
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
+    version('mraj', git='https://github.com/hguo/MPAS-Model.git')
 
     depends_on('mpich@3.2.1 device=ch3')
     depends_on('pio@1_7_2', type='link')
@@ -25,7 +26,9 @@ class MpasOcean(Package):
     depends_on('netcdf-c@4.6.1 +mpi', type='link')
     depends_on('netcdf-fortran@4.4.4', type='link')
     depends_on('parallel-netcdf@1.7.0 -shared', type='link')
-    depends_on('python@:2.9', type='build')
+    # depends_on('python@:2.9', type='build')
+
+    # depends_on('decaf', type=('link', 'run'), when='@mraj')
 
     phases = ['build', 'install']
 
@@ -36,6 +39,7 @@ class MpasOcean(Package):
                 'NETCDF={0}'.format(spec['netcdf-c'].prefix), 
                 'NETCDFF={0}'.format(spec['netcdf-fortran'].prefix),
                 'PNETCDF={0}'.format(spec['parallel-netcdf'].prefix),
+                # 'DECAF={0}'.format(spec['decaf'].prefix)
                 'PIO={0}'.format(spec['pio'].prefix),
                 # 'FFLAGS={0}'.format('-mcmodel=large'),
                 'CORE=ocean'
