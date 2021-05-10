@@ -19,7 +19,7 @@ class MpasOcean(Package):
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
     version('mraj', git='https://github.com/hguo/MPAS-Model.git')
-    version('pwolfram', git='https://github.com/pwolfram/MPAS-Model')
+    version('pwolfram', branch='ocean/adds_wind_amp', git='https://github.com/pwolfram/MPAS-Model')
 
     depends_on('mpich@3.2.1 device=ch3')
     depends_on('pio@1_7_2', type='link')
