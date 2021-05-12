@@ -1,5 +1,5 @@
 diff --git a/examples/ptrace/CMakeLists.txt b/examples/ptrace/CMakeLists.txt
-index b343acb..4f44423 100644
+index 1f70a7c..691c9b5 100644
 --- a/examples/ptrace/CMakeLists.txt
 +++ b/examples/ptrace/CMakeLists.txt
 @@ -22,6 +22,7 @@ find_path                   (DIY_INCLUDE_DIRS diy/types.h)
@@ -10,31 +10,21 @@ index b343acb..4f44423 100644
  
  find_package (NetCDF REQUIRED)
  include_directories (${NETCDF_INCLUDE_DIR})
-@@ -33,7 +34,6 @@ set                         (PNETCDF_LIBRARY ${PNETCDF_DIR}/lib/libpnetcdf.a)
- include_directories (${PNETCDF_INCLUDE_DIR})
- link_directories(${PNETCDF_DIR}/lib)
+@@ -51,11 +52,23 @@ INCLUDE_DIRECTORIES ( "${EIGEN3_INCLUDE_DIR}"  )
  
--
- #--------------------
- # DEPENDENCY: nabo
- #--------------------
-@@ -51,7 +51,7 @@ INCLUDE_DIRECTORIES ( "${EIGEN3_INCLUDE_DIR}"  )
- 
- add_executable 	(ptrace src/main.cpp src/core/ptrace.cpp src/io/mpas_io.cpp src/core/pathline.cpp src/core/ptrace.cpp src/core/block.cpp src/utils/misc.cpp src/core/geometry_utils.cpp src/core/advect.cpp src/core/flowline.cpp src/core/streamline.cpp src/utils/process.cpp)
+ add_executable 	(ptrace src/main.cpp src/core/ptrace.cpp src/io/mpas_io.cpp src/core/pathline.cpp src/core/ptrace.cpp src/core/block.cpp src/utils/misc.cpp src/core/geometry_utils.cpp src/core/advect.cpp)
  target_include_directories(ptrace PRIVATE src/io src/core src/utils)
 -target_link_libraries (ptrace  ${NetCDF_LIBRARIES} ${bredala_transports} ${PNETCDF_LIBRARY} bredala_datamodel manala decaf ${libnabo_LIBRARIES} ${PNETCDF_LIBRARY} )
 +target_link_libraries (ptrace  ${NetCDF_LIBRARIES} ${bredala_transports} ${PNETCDF_LIBRARY} bredala_datamodel manala decaf ${libnabo_LIBRARIES} ${PNETCDF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
  
  add_library     (adapter MODULE src/adapter/adapter.cpp)
  # .SO file extension on Linux/Mac OS
-@@ -64,4 +64,17 @@ set_target_properties       (adapter          PROPERTIES SUFFIX ".so")
- # LIC generation
- add_executable( prep_dense_seeds src/prep_dense_seeds.cpp src/io/particles_io.cpp src/utils/misc.cpp)
- target_include_directories(prep_dense_seeds PRIVATE src/io src/utils)
--target_link_libraries(prep_dense_seeds ${NetCDF_LIBRARIES} ${PNETCDF_LIBRARY} )
+ set_target_properties       (adapter          PROPERTIES SUFFIX ".so")
+ 
+ # # Don't add a 'lib' prefix to the shared library
+-# set_target_properties       (mod_adapter       PROPERTIES PREFIX "")
 \ No newline at end of file
-+target_link_libraries(prep_dense_seeds ${NetCDF_LIBRARIES} ${PNETCDF_LIBRARY} )
-+
++# set_target_properties       (mod_adapter       PROPERTIES PREFIX "")
 +
 +install                 (TARGETS ptrace
 +                        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/
@@ -47,3 +37,15 @@ index b343acb..4f44423 100644
 +                        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
 +                        GROUP_READ GROUP_WRITE GROUP_EXECUTE
 +                        WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+diff --git a/src/bredala/transport/split.cpp b/src/bredala/transport/split.cpp
+index 0a30382..99d8307 100644
+--- a/src/bredala/transport/split.cpp
++++ b/src/bredala/transport/split.cpp
+@@ -29,6 +29,7 @@ decaf::split_by_count(pConstructData& data,                             // Data
+         // Clearing the send buffer from previous iteration
+         splitChunks.clear();
+         destList.clear();
++        splitBuffer.clear();
+ 
+         // Case where the current data model does not have data
+         if(!data.getPtr() || data->getNbItems() == 0)

@@ -14,8 +14,8 @@ class Decaf(CMakePackage):
     git      = "https://github.com/tpeterka/decaf.git"
 
     version('master', branch='master')
-    # version('mraj', git='https://github.com/hguo/decaf.git')
-    version('mraj', git='https://github.com/mukundraj/decaf.git', branch='dyn-lbal')
+    # version('mraj', git='https://github.com/mukundraj/decaf.git', branch='insitu-pred2')
+    version('mraj', git='https://github.com/hguo/decaf.git', branch='insitu-pred2')
 
 
     depends_on('mpich@3.2.1 device=ch3')
@@ -34,7 +34,7 @@ class Decaf(CMakePackage):
     depends_on('libnabo', type='link', when='@mraj')
     depends_on('diy@master', type='link', when='@mraj')
     
-    patch('patch', when='@mraj')
+    # patch('patch', when='@mraj')
 
     def setup_run_environment(self, env):
         env.set('DECAF_PREFIX', self.prefix)

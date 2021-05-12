@@ -18,7 +18,7 @@ class MpasOcean(Package):
     # maintainers = ['github_user1', 'github_user2']
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
-    version('mraj', git='https://github.com/mukundraj/MPAS-Model.git', branch='v6.0_decaf-hooks')
+    version('mraj', git='https://github.com/mukundraj/MPAS-Model.git', branch='insitu-pred2')
     version('pwolfram', commit='243471f462f0500debee2017fa9ec54adb07ea65', git='https://github.com/pwolfram/MPAS-Model')
 
     patch('patch')
