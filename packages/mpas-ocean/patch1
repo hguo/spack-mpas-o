@@ -1,0 +1,14 @@
+diff --git a/src/Makefile b/src/Makefile
+index 5051691e..c5cb584f 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -15,7 +15,8 @@ endif
+ all: mpas
+ 
+ mpas: $(AUTOCLEAN_DEPS) externals frame ops dycore drver
+-	$(LINKER) $(LDFLAGS) -o $(EXE_NAME) driver/*.o "$(DECAF_FOLDER)"/build/examples/ptrace/libadapter.so -L. -ldycore -lops -lframework $(LIBS) -I./external/esmf_time_f90 -L./external/esmf_time_f90 -lesmf_time "$(DECAF_FOLDER)"/build/src/decaf/libdecaf.so "$(DECAF_FOLDER)"/build/src/manala/libmanala.so "$(DECAF_FOLDER)"/build/src/bredala/transport/mpi/libbredala_transport_mpi.so "$(DECAF_FOLDER)"/build/src/bredala/data_model/libbredala_datamodel.so "$(BOOST_INSTALL_DIR)"/lib/libboost_serialization.so -lstdc++
++	$(LINKER) $(LDFLAGS) -o $(EXE_NAME) driver/*.o -L. -ldycore -lops -lframework $(LIBS) -I./external/esmf_time_f90 -L./external/esmf_time_f90 -lesmf_time -L$(DECAF_FOLDER)/lib -ladapter -ldecaf -lmanala -lbredala_transport_mpi -L$(BOOST_INSTALL_DIR)/lib -lboost_serialization -lstdc++
++	# $(LINKER) $(LDFLAGS) -o $(EXE_NAME) driver/*.o "$(DECAF_FOLDER)"/lib/libadapter.so -L. -ldycore -lops -lframework $(LIBS) -I./external/esmf_time_f90 -L./external/esmf_time_f90 -lesmf_time "$(DECAF_FOLDER)"/lib/libdecaf.so "$(DECAF_FOLDER)"/lib/libmanala.so "$(DECAF_FOLDER)"/lib/libbredala_transport_mpi.so "$(DECAF_FOLDER)"/build/src/bredala/data_model/libbredala_datamodel.so "$(BOOST_INSTALL_DIR)"/lib/libboost_serialization.so -lstdc++
+ 
+ externals: $(AUTOCLEAN_DEPS)
+ 	( cd external; $(MAKE) FC="$(FC)" SFC="$(SFC)" CC="$(CC)" SCC="$(SCC)" FFLAGS="$(FFLAGS)" CFLAGS="$(CFLAGS)" CPP="$(CPP)" NETCDF="$(NETCDF)" CORE="$(CORE)" all )

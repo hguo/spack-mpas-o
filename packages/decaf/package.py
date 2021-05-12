@@ -36,6 +36,10 @@ class Decaf(CMakePackage):
     
     patch('patch', when='@mraj')
 
+    def setup_run_environment(self, env):
+        env.set('DECAF_PREFIX', self.prefix)
+        env.set('DECAF_FOLDER', self.prefix)
+
     def cmake_args(self):
         args = ['-DCMAKE_C_COMPILER=%s' % self.spec['mpi'].mpicc,
                 '-DCMAKE_CXX_COMPILER=%s' % self.spec['mpi'].mpicxx]

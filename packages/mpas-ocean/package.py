@@ -18,10 +18,11 @@ class MpasOcean(Package):
     # maintainers = ['github_user1', 'github_user2']
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
-    version('mraj', git='https://github.com/hguo/MPAS-Model.git')
+    version('mraj', git='https://github.com/mukundraj/MPAS-Model.git', branch='v6.0_decaf-hooks')
     version('pwolfram', commit='243471f462f0500debee2017fa9ec54adb07ea65', git='https://github.com/pwolfram/MPAS-Model')
 
     patch('patch')
+    patch('patch1', when='@mraj')
 
     depends_on('mpich@3.2.1 device=ch3')
     depends_on('pio@1_7_2', type='link')
@@ -48,6 +49,10 @@ class MpasOcean(Package):
                 # 'FFLAGS={0}'.format('-mcmodel=large'),
                 'CORE=ocean'
                 ]
+
+        if (self.spec.satisfies('@mraj')):
+            target.append('DECAF_FOLDER={0}'.format(spec['decaf'].prefix))
+
         return target
 
     def build(self, spec, prefix):
