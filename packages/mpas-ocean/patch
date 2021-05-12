@@ -1,0 +1,26 @@
+diff --git a/src/core_ocean/get_BGC.sh b/src/core_ocean/get_BGC.sh
+index 29a14d6c..e3467225 100755
+--- a/src/core_ocean/get_BGC.sh
++++ b/src/core_ocean/get_BGC.sh
+@@ -82,6 +82,8 @@ if [ ! -d BGC ]; then
+ 	fi
+ fi
+ 
++sed -i 's/print/#/g' ./BGC/makedep.py
++
+ if [ ! -d BGC ]; then
+ 	echo " ****************************************************** "
+ 	echo " ERROR: Build failed to acquire BGC source."
+diff --git a/src/core_ocean/get_cvmix.sh b/src/core_ocean/get_cvmix.sh
+index 76ca64f2..9ef54429 100755
+--- a/src/core_ocean/get_cvmix.sh
++++ b/src/core_ocean/get_cvmix.sh
+@@ -82,6 +82,8 @@ if [ ! -d cvmix ]; then
+ 	fi 
+ fi
+ 
++sed -i 's/print/#/g' ./cvmix/makedep.py
++
+ if [ ! -d cvmix ]; then
+ 	echo " ****************************************************** "
+ 	echo " ERROR: Build failed to acquire CVMix source."

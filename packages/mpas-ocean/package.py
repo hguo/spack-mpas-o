@@ -19,7 +19,9 @@ class MpasOcean(Package):
 
     version('6.0', 'b5c0000be0a6bececf4426cdf946cba0727b69985478ded0011ec31282c75105')
     version('mraj', git='https://github.com/hguo/MPAS-Model.git')
-    version('pwolfram', branch='ocean/adds_wind_amp', git='https://github.com/pwolfram/MPAS-Model')
+    version('pwolfram', commit='243471f462f0500debee2017fa9ec54adb07ea65', git='https://github.com/pwolfram/MPAS-Model')
+
+    patch('patch')
 
     depends_on('mpich@3.2.1 device=ch3')
     depends_on('pio@1_7_2', type='link')
@@ -27,7 +29,8 @@ class MpasOcean(Package):
     depends_on('netcdf-c@4.6.1 +mpi', type='link')
     depends_on('netcdf-fortran@4.4.4', type='link')
     depends_on('parallel-netcdf@1.7.0 -shared', type='link')
-    depends_on('python@:2.9', type='build')
+    # depends_on('python@:2.9', type='build')
+    depends_on('python@3:', type='build')
 
     depends_on('decaf@mraj', type=('link', 'run'), when='@mraj')
 
