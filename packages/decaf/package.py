@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+from spack.package import *
 
 
 class Decaf(CMakePackage):
@@ -27,7 +27,7 @@ class Decaf(CMakePackage):
     depends_on('py-netcdf4', type='run', when='@mraj')
     depends_on('py-scipy', type='run', when='@mraj')
     depends_on('py-pyamg', type='run', when='@mraj')
-    depends_on('netcdf-c@4.6.1 +mpi ^hdf5@1.10.2', type='link', when='@mraj')
+    # depends_on('netcdf-c@4.6.1 +mpi ^hdf5@1.10.2', type='link', when='@mraj')
     # depends_on('vtk ^mesa~llvm swr=none', type='link', when='@mraj')
     depends_on('vtk', type='link', when='@mraj')
     depends_on('parallel-netcdf@1.7.0 -shared', type='link', when='@mraj')
